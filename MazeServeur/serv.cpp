@@ -3,6 +3,9 @@
 serv::serv()
 {
     connect(this, SIGNAL(newConnection()), this, SLOT(handleNewConnection()));
+    currentLevel =1;
+    graphicCalcul = new GraphicCalcul;
+
 }
 
 serv::~serv()
@@ -14,6 +17,7 @@ serv::~serv()
 void serv::start()
 {
     listen(QHostAddress::LocalHost, 1234);
+    generateKey();
 }
 
 void serv::stop()
@@ -65,32 +69,81 @@ void serv::readClient()
     {
         ligne = client->readLine();
     }
-    if(ligne.contains("connect"))
+
+    if(ligne.contains("disconnect"))
+    {
+            QString ps = ligne.split("|").at(1);
+            ps.remove("\n");
+            pseudo.removeAt(pseudo.indexOf(ps));
+    }
+    else if(ligne.contains("connect"))
     {
         if(isFree(ligne))
-            sendConnexion(client,"YES");
+        {
+            sendSpecificMessage(client,"connect|YES");
+            QString ps = ligne.split("|").at(1);
+            ps.remove("\n");
+            pseudo.append(ps);
+            sendSpecificMessage(client,"load|"+QString::number(indexMap));
+        }
         else
-            sendConnexion(client,"NO");
-    }
+            sendSpecificMessage(client,"connect|NO");
+    }   
     else
+    {
+        QString command =  ligne.split(">> ").at(1);
+        command.remove("\n");
+        command = command.toUpper();
+
         sendMsg(ligne);
+    }
 }
 
 bool serv::isFree(QString text)
 {
     QString nom = text.split("|").at(1);
+    nom.remove("\n");
     for(int i=0; i < pseudo.size(); i++)
         if(pseudo.at(i) == nom)
-            return true;
+            return false;
 
-    return false;
+    return true;
 }
 
-void serv::sendConnexion(QTcpSocket *client,QString valid)
+void serv::sendSpecificMessage(QTcpSocket *client,QString valid)
 {
     QTextStream flux(client);
-    flux << "connect|" << valid << endl;
+    flux << valid << endl;
 }
+
+void serv::generateKey()
+{
+    /* initialize random seed: */
+    srand (time(NULL));
+
+    indexMap = rand() % 5 + 1;
+}
+
+int serv::getMap() const
+{
+    return indexMap;
+}
+
+void serv::setMap(int value)
+{
+    indexMap = value;
+}
+
+int serv::getCurrentLevel() const
+{
+    return currentLevel;
+}
+
+void serv::setCurrentLevel(int value)
+{
+    currentLevel = value;
+}
+
 
 QList<QTcpSocket *> serv::getClientConnections() const
 {

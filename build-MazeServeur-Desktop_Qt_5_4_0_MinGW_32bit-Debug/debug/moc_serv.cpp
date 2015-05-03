@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_serv_t {
-    QByteArrayData data[9];
-    char stringdata[77];
+    QByteArrayData data[14];
+    char stringdata[105];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,12 +37,17 @@ QT_MOC_LITERAL(4, 17, 6), // "nombre"
 QT_MOC_LITERAL(5, 24, 2), // "nb"
 QT_MOC_LITERAL(6, 27, 19), // "handleNewConnection"
 QT_MOC_LITERAL(7, 47, 18), // "clientDisconnected"
-QT_MOC_LITERAL(8, 66, 10) // "readClient"
+QT_MOC_LITERAL(8, 66, 10), // "readClient"
+QT_MOC_LITERAL(9, 77, 8), // "commands"
+QT_MOC_LITERAL(10, 86, 2), // "UP"
+QT_MOC_LITERAL(11, 89, 4), // "DOWN"
+QT_MOC_LITERAL(12, 94, 4), // "LEFT"
+QT_MOC_LITERAL(13, 99, 5) // "RIGHT"
 
     },
     "serv\0niveau\0\0niv\0nombre\0nb\0"
     "handleNewConnection\0clientDisconnected\0"
-    "readClient"
+    "readClient\0commands\0UP\0DOWN\0LEFT\0RIGHT"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,7 +59,7 @@ static const uint qt_meta_data_serv[] = {
        0,    0, // classinfo
        5,   14, // methods
        0,    0, // properties
-       0,    0, // enums/sets
+       1,   48, // enums/sets
        0,    0, // constructors
        0,       // flags
        2,       // signalCount
@@ -76,6 +81,15 @@ static const uint qt_meta_data_serv[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+
+ // enums: name, flags, count, data
+       9, 0x0,    4,   52,
+
+ // enum data: key, value
+      10, uint(serv::UP),
+      11, uint(serv::DOWN),
+      12, uint(serv::LEFT),
+      13, uint(serv::RIGHT),
 
        0        // eod
 };

@@ -45,18 +45,22 @@ OBJECTS_DIR   = release
 
 SOURCES       = ..\MazeServeur\main.cpp \
 		..\MazeServeur\mainwindow.cpp \
-		..\MazeServeur\serv.cpp release\moc_mainwindow.cpp \
+		..\MazeServeur\serv.cpp \
+		..\MazeServeur\graphiccalcul.cpp release\moc_mainwindow.cpp \
 		release\moc_serv.cpp
 OBJECTS       = release/main.o \
 		release/mainwindow.o \
 		release/serv.o \
+		release/graphiccalcul.o \
 		release/moc_mainwindow.o \
 		release/moc_serv.o
 
 DIST          =  ..\MazeServeur\mainwindow.h \
-		..\MazeServeur\serv.h ..\MazeServeur\main.cpp \
+		..\MazeServeur\serv.h \
+		..\MazeServeur\graphiccalcul.h ..\MazeServeur\main.cpp \
 		..\MazeServeur\mainwindow.cpp \
-		..\MazeServeur\serv.cpp
+		..\MazeServeur\serv.cpp \
+		..\MazeServeur\graphiccalcul.cpp
 QMAKE_TARGET  = MazeServeur
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = MazeServeur.exe
@@ -95,7 +99,7 @@ dist:
 	$(ZIP) MazeServeur.zip $(SOURCES) $(DIST) ..\MazeServeur\MazeServeur.pro E:\Qt\5.4\mingw491_32\mkspecs\features\spec_pre.prf E:\Qt\5.4\mingw491_32\mkspecs\qdevice.pri E:\Qt\5.4\mingw491_32\mkspecs\features\device_config.prf E:\Qt\5.4\mingw491_32\mkspecs\common\shell-win32.conf E:\Qt\5.4\mingw491_32\mkspecs\qconfig.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_axbase.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_axbase_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_axcontainer.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_axcontainer_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_axserver.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_axserver_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_bluetooth.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_bluetooth_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_bootstrap_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_clucene_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_concurrent.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_concurrent_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_core.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_core_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_declarative.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_declarative_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_designer.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_designer_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_designercomponents_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_enginio.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_enginio_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_gui.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_gui_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_help.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_help_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_location.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_location_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_multimedia.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_multimedia_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_multimediawidgets.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_network.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_network_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_nfc.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_nfc_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_opengl.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_opengl_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_openglextensions.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_openglextensions_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_platformsupport_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_positioning.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_positioning_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_printsupport.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_printsupport_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_qml.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_qml_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_qmldevtools_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_qmltest.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_qmltest_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_quick.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_quick_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_quickparticles_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_quickwidgets.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_quickwidgets_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_script.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_script_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_scripttools.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_scripttools_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_sensors.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_sensors_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_serialport.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_serialport_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_sql.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_sql_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_svg.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_svg_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_testlib.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_testlib_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_uitools.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_uitools_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webchannel.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webchannel_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webkit.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webkit_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webkitwidgets.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_websockets.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_websockets_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webview.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_webview_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_widgets.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_widgets_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_winextras.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_winextras_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_xml.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_xml_private.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_xmlpatterns.pri E:\Qt\5.4\mingw491_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri E:\Qt\5.4\mingw491_32\mkspecs\features\qt_functions.prf E:\Qt\5.4\mingw491_32\mkspecs\features\qt_config.prf E:\Qt\5.4\mingw491_32\mkspecs\features\win32\qt_config.prf E:\Qt\5.4\mingw491_32\mkspecs\win32-g++\qmake.conf E:\Qt\5.4\mingw491_32\mkspecs\features\spec_post.prf E:\Qt\5.4\mingw491_32\mkspecs\features\exclusive_builds.prf E:\Qt\5.4\mingw491_32\mkspecs\features\default_pre.prf E:\Qt\5.4\mingw491_32\mkspecs\features\win32\default_pre.prf E:\Qt\5.4\mingw491_32\mkspecs\features\resolve_config.prf E:\Qt\5.4\mingw491_32\mkspecs\features\exclusive_builds_post.prf E:\Qt\5.4\mingw491_32\mkspecs\features\default_post.prf E:\Qt\5.4\mingw491_32\mkspecs\features\build_pass.prf E:\Qt\5.4\mingw491_32\mkspecs\features\win32\rtti.prf E:\Qt\5.4\mingw491_32\mkspecs\features\precompile_header.prf E:\Qt\5.4\mingw491_32\mkspecs\features\warn_on.prf E:\Qt\5.4\mingw491_32\mkspecs\features\qt.prf E:\Qt\5.4\mingw491_32\mkspecs\features\resources.prf E:\Qt\5.4\mingw491_32\mkspecs\features\moc.prf E:\Qt\5.4\mingw491_32\mkspecs\features\win32\opengl.prf E:\Qt\5.4\mingw491_32\mkspecs\features\uic.prf E:\Qt\5.4\mingw491_32\mkspecs\features\win32\windows.prf E:\Qt\5.4\mingw491_32\mkspecs\features\testcase_targets.prf E:\Qt\5.4\mingw491_32\mkspecs\features\exceptions.prf E:\Qt\5.4\mingw491_32\mkspecs\features\yacc.prf E:\Qt\5.4\mingw491_32\mkspecs\features\lex.prf ..\MazeServeur\MazeServeur.pro E:/Qt/5.4/mingw491_32/lib/qtmain.prl E:/Qt/5.4/mingw491_32/lib/Qt5Core.prl E:/Qt/5.4/mingw491_32/lib/Qt5Widgets.prl E:/Qt/5.4/mingw491_32/lib/Qt5Gui.prl E:/Qt/5.4/mingw491_32/lib/Qt5Network.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.o release\mainwindow.o release\serv.o release\moc_mainwindow.o release\moc_serv.o
+	-$(DEL_FILE) release\main.o release\mainwindow.o release\serv.o release\graphiccalcul.o release\moc_mainwindow.o release\moc_serv.o
 
 distclean: clean 
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -227,6 +231,7 @@ release/moc_mainwindow.cpp: E:/Qt/5.4/mingw491_32/include/QtWidgets/QMainWindow 
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qhostaddress.h \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/QTcpSocket \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qtcpsocket.h \
+		../MazeServeur/graphiccalcul.h \
 		../MazeServeur/mainwindow.h
 	E:\Qt\5.4\mingw491_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IE:/Qt/5.4/mingw491_32/mkspecs/win32-g++ -IF:/Documents/GitHub/Maze-Solvers/MazeServeur -IE:/Qt/5.4/mingw491_32/include -IE:/Qt/5.4/mingw491_32/include/QtWidgets -IE:/Qt/5.4/mingw491_32/include/QtGui -IE:/Qt/5.4/mingw491_32/include/QtNetwork -IE:/Qt/5.4/mingw491_32/include/QtCore -I. ..\MazeServeur\mainwindow.h -o release\moc_mainwindow.cpp
 
@@ -303,6 +308,7 @@ release/moc_serv.cpp: E:/Qt/5.4/mingw491_32/include/QtCore/QObject \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qhostaddress.h \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/QTcpSocket \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qtcpsocket.h \
+		../MazeServeur/graphiccalcul.h \
 		../MazeServeur/serv.h
 	E:\Qt\5.4\mingw491_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IE:/Qt/5.4/mingw491_32/mkspecs/win32-g++ -IF:/Documents/GitHub/Maze-Solvers/MazeServeur -IE:/Qt/5.4/mingw491_32/include -IE:/Qt/5.4/mingw491_32/include/QtWidgets -IE:/Qt/5.4/mingw491_32/include/QtGui -IE:/Qt/5.4/mingw491_32/include/QtNetwork -IE:/Qt/5.4/mingw491_32/include/QtCore -I. ..\MazeServeur\serv.h -o release\moc_serv.cpp
 
@@ -440,6 +446,7 @@ release/main.o: ../MazeServeur/main.cpp ../MazeServeur/mainwindow.h \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qhostaddress.h \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/QTcpSocket \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qtcpsocket.h \
+		../MazeServeur/graphiccalcul.h \
 		E:/Qt/5.4/mingw491_32/include/QtWidgets/QApplication \
 		E:/Qt/5.4/mingw491_32/include/QtWidgets/qapplication.h \
 		E:/Qt/5.4/mingw491_32/include/QtCore/qcoreapplication.h \
@@ -563,7 +570,41 @@ release/mainwindow.o: ../MazeServeur/mainwindow.cpp ../MazeServeur/mainwindow.h 
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qhostaddress.h \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/QTcpSocket \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qtcpsocket.h \
-		ui_mainwindow.h
+		../MazeServeur/graphiccalcul.h \
+		ui_mainwindow.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/QVariant \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/QAction \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qaction.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qactiongroup.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/QApplication \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qapplication.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qcoreapplication.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qeventloop.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qdesktopwidget.h \
+		E:/Qt/5.4/mingw491_32/include/QtGui/qguiapplication.h \
+		E:/Qt/5.4/mingw491_32/include/QtGui/qinputmethod.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/QButtonGroup \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qbuttongroup.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/QHeaderView \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qheaderview.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractitemview.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractscrollarea.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qframe.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qabstractitemmodel.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qitemselectionmodel.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractitemdelegate.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qstyleoption.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractspinbox.h \
+		E:/Qt/5.4/mingw491_32/include/QtGui/qvalidator.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qregularexpression.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qslider.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qabstractslider.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qstyle.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qtabbar.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qrubberband.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/QLabel \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/qlabel.h \
+		E:/Qt/5.4/mingw491_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\MazeServeur\mainwindow.cpp
 
 release/serv.o: ../MazeServeur/serv.cpp ../MazeServeur/serv.h \
@@ -639,8 +680,62 @@ release/serv.o: ../MazeServeur/serv.cpp ../MazeServeur/serv.h \
 		E:/Qt/5.4/mingw491_32/include/QtCore/qcontiguouscache.h \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/qhostaddress.h \
 		E:/Qt/5.4/mingw491_32/include/QtNetwork/QTcpSocket \
-		E:/Qt/5.4/mingw491_32/include/QtNetwork/qtcpsocket.h
+		E:/Qt/5.4/mingw491_32/include/QtNetwork/qtcpsocket.h \
+		../MazeServeur/graphiccalcul.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\serv.o ..\MazeServeur\serv.cpp
+
+release/graphiccalcul.o: ../MazeServeur/graphiccalcul.cpp ../MazeServeur/graphiccalcul.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/QObject \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qobject.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qobjectdefs.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qnamespace.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qglobal.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qconfig.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qfeatures.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qsystemdetection.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qprocessordetection.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qcompilerdetection.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qtypeinfo.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qtypetraits.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qsysinfo.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qlogging.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qflags.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qbasicatomic.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_bootstrap.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qgenericatomic.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_msvc.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_armv7.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_armv6.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_armv5.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_ia64.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_mips.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_x86.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_cxx11.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_gcc.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qatomic_unix.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qglobalstatic.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qmutex.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qnumeric.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qobjectdefs_impl.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qstring.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qchar.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qbytearray.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qrefcount.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qarraydata.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qstringbuilder.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qlist.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qalgorithms.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qiterator.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qbytearraylist.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qcoreevent.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qscopedpointer.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qmetatype.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qvarlengtharray.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qcontainerfwd.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qisenum.h \
+		E:/Qt/5.4/mingw491_32/include/QtCore/qobject_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\graphiccalcul.o ..\MazeServeur\graphiccalcul.cpp
 
 release/moc_mainwindow.o: release/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_mainwindow.o release\moc_mainwindow.cpp
