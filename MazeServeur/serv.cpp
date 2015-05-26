@@ -1,9 +1,11 @@
 #include "serv.h"
+#include <QDir>
+#include <QFileInfoList>
 
 serv::serv()
 {
     connect(this, SIGNAL(newConnection()), this, SLOT(handleNewConnection()));
-    currentLevel =1;
+    currentLevel = 1;
     graphicCalcul = new GraphicCalcul;
 
 }
@@ -13,11 +15,12 @@ serv::~serv()
 
 }
 
-
 void serv::start()
 {
-    listen(QHostAddress::LocalHost, 1234);
-    generateKey();
+   listen(QHostAddress::Any, 1234);
+   generateAll();
+   emit niveau(QString::number(currentLevel));
+   emit nombre(clientConnections.size());
 }
 
 void serv::stop()
@@ -31,7 +34,7 @@ void serv::sendMsg(QString msg)
     for(int i=0; i< clientConnections.size();i++)
     {
         QTextStream flux(clientConnections.at(i));
-        flux << msg << endl << endl;
+        flux << msg << endl ;
     }
 }
 
@@ -76,6 +79,10 @@ void serv::readClient()
             ps.remove("\n");
             pseudo.removeAt(pseudo.indexOf(ps));
     }
+    else if(ligne.contains("count"))
+    {
+        sendSpecificMessage(client,"count|" + QString::number(countMap()));
+    }
     else if(ligne.contains("connect"))
     {
         if(isFree(ligne))
@@ -84,18 +91,36 @@ void serv::readClient()
             QString ps = ligne.split("|").at(1);
             ps.remove("\n");
             pseudo.append(ps);
-            sendSpecificMessage(client,"load|"+QString::number(indexMap));
+            sendSpecificMessage(client,"load|" + QString::number(indexMap) + "|" + QString::number(currentLevel) + "|move&down&" + graphicCalcul->getPlayer());
         }
         else
             sendSpecificMessage(client,"connect|NO");
     }   
     else
     {
+        graphicCalcul->setTraitment(false);
         QString command =  ligne.split(">> ").at(1);
         command.remove("\n");
         command = command.toUpper();
-
-        sendMsg(ligne);
+        if(command == "UP")
+            graphicCalcul->up();
+        if(command == "DOWN")
+            graphicCalcul->down();
+        if(command == "LEFT")
+            graphicCalcul->left();
+        if(command == "RIGHT")
+            graphicCalcul->right();
+        if(graphicCalcul->getTraitment())
+            sendMsg(ligne + "|move&" + command.toLower() + "&" + graphicCalcul->getPlayer());
+        else
+            sendMsg(ligne);
+    }
+    if(graphicCalcul->isArrived())
+    {
+        currentLevel++;
+        generateAll();
+        sendMsg("load|" + QString::number(indexMap) + "|" + QString::number(currentLevel)+ "|move&down&" + graphicCalcul->getPlayer());
+        emit niveau(QString::number(currentLevel));
     }
 }
 
@@ -121,7 +146,18 @@ void serv::generateKey()
     /* initialize random seed: */
     srand (time(NULL));
 
-    indexMap = rand() % 5 + 1;
+    int numberFiles = countMap();
+    indexMap = rand() % numberFiles + 1;
+}
+
+void serv::generateAll()
+{
+    bool loadOK = false;
+    do
+    {
+        generateKey();
+        loadOK = graphicCalcul->loadMap(indexMap);
+    }while(!loadOK);
 }
 
 int serv::getMap() const
@@ -132,6 +168,24 @@ int serv::getMap() const
 void serv::setMap(int value)
 {
     indexMap = value;
+}
+
+int serv::countMap()
+{
+    QDir dir = QDir::currentPath() + "/map/";
+
+    QFileInfoList listRepertoire = dir.entryInfoList(QDir::Dirs | QDir::Files);
+    int numberFiles = 0;
+
+    for (int i = 0; i < listRepertoire.size(); ++i)
+    {
+        QFileInfo fileInfos = listRepertoire.at(i);
+        if(fileInfos.isFile())
+        {
+            numberFiles++;
+        }
+    }
+    return numberFiles;
 }
 
 int serv::getCurrentLevel() const

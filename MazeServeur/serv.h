@@ -28,6 +28,7 @@ public:
 
     int getMap() const;
     void setMap(int value);
+    int countMap();
 
 
 protected:
@@ -49,7 +50,7 @@ private:
     bool isFree(QString text);
     void sendSpecificMessage(QTcpSocket * client, QString valid);
     void generateKey();
-
+    void generateAll();
 
 signals:
     void niveau(QString niv);
