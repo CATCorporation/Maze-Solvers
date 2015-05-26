@@ -7,7 +7,8 @@ serv::serv()
     connect(this, SIGNAL(newConnection()), this, SLOT(handleNewConnection()));
     currentLevel = 1;
     graphicCalcul = new GraphicCalcul;
-
+    timerMode = new QTimer;
+    connect(timerMode,SIGNAL(timeout()),this,SLOT(timeoutCommand()));
 }
 
 serv::~serv()
@@ -21,6 +22,8 @@ void serv::start()
    generateAll();
    emit niveau(QString::number(currentLevel));
    emit nombre(clientConnections.size());
+   up = down = left = right = 0;
+   modeDeJeu = 50;
 }
 
 void serv::stop()
@@ -83,6 +86,29 @@ void serv::readClient()
     {
         sendSpecificMessage(client,"count|" + QString::number(countMap()));
     }
+    else if(ligne.contains("anarchie"))
+    {
+        QString command =  ligne.split(">> ").at(1);
+        command.remove("\n");
+        if(command == "anarchie" )
+        {
+            sendMsg(ligne+"|mode|" + QString::number(-1));
+            modeDeJeu--;
+        }
+
+    }
+    else if(ligne.contains("democratie"))
+    {
+        QString command =  ligne.split(">> ").at(1);
+        command.remove("\n");
+        if(command == "democratie" )
+        {
+            sendMsg(ligne+"|mode|" + QString::number(1));
+            modeDeJeu++;
+        }
+        if(modeDeJeu > 50)
+            timerMode->start(5000);
+    }
     else if(ligne.contains("connect"))
     {
         if(isFree(ligne))
@@ -102,14 +128,21 @@ void serv::readClient()
         QString command =  ligne.split(">> ").at(1);
         command.remove("\n");
         command = command.toUpper();
-        if(command == "UP")
-            graphicCalcul->up();
-        if(command == "DOWN")
-            graphicCalcul->down();
-        if(command == "LEFT")
-            graphicCalcul->left();
-        if(command == "RIGHT")
-            graphicCalcul->right();
+
+        if(modeDeJeu > 50)
+        {
+            if(command == "UP")
+                up++;
+            if(command == "DOWN")
+                down++;
+            if(command == "LEFT")
+                left++;
+            if(command == "RIGHT")
+                right++;
+        }
+        else
+            executeCommand(command);
+
         if(graphicCalcul->getTraitment())
             sendMsg(ligne + "|move&" + command.toLower() + "&" + graphicCalcul->getPlayer());
         else
@@ -122,6 +155,42 @@ void serv::readClient()
         sendMsg("load|" + QString::number(indexMap) + "|" + QString::number(currentLevel)+ "|move&down&" + graphicCalcul->getPlayer());
         emit niveau(QString::number(currentLevel));
     }
+}
+
+void serv::timeoutCommand()
+{
+
+    QList<int> listeCommande;
+    listeCommande << up << down << left << right;
+    int save = -1;
+
+    for(int i = 0; i < 4;  i++)
+        if(listeCommande.at(0)< listeCommande.at(i))
+            save = i;
+
+    switch(save)
+    {
+        case 0:
+            commandWin = "UP";
+        break;
+        case 1:
+            commandWin = "DOWN";
+        break;
+        case 2:
+            commandWin = "LEFT";
+        break;
+        case 3:
+            commandWin = "RIGHT";
+        break;
+    }
+
+    executeCommand(commandWin);
+    if(graphicCalcul->getTraitment())
+        sendMsg("|move&" + commandWin.toLower() + "&" + graphicCalcul->getPlayer());
+
+    up = down = left = right =0;
+
+    timerMode->start(5000);
 }
 
 bool serv::isFree(QString text)
@@ -158,6 +227,18 @@ void serv::generateAll()
         generateKey();
         loadOK = graphicCalcul->loadMap(indexMap);
     }while(!loadOK);
+}
+
+void serv::executeCommand(QString cmd)
+{
+    if(cmd == "UP")
+        graphicCalcul->up();
+    if(cmd == "DOWN")
+        graphicCalcul->down();
+    if(cmd == "LEFT")
+        graphicCalcul->left();
+    if(cmd == "RIGHT")
+        graphicCalcul->right();
 }
 
 int serv::getMap() const

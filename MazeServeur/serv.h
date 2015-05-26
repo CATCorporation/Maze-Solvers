@@ -6,6 +6,7 @@
 #include <QtNetwork/QTcpSocket>
 #include <stdlib.h>
 #include <time.h>
+#include <QTimer>
 
 #include "graphiccalcul.h"
 
@@ -38,6 +39,7 @@ protected slots:
     void handleNewConnection();
     void clientDisconnected();
     void readClient();
+    void timeoutCommand();
 
 private:
     QList<QTcpSocket *> clientConnections;
@@ -45,12 +47,16 @@ private:
     QStringList maze;
     int currentLevel;
     int indexMap;
+    int modeDeJeu,up,down,left,right;
     GraphicCalcul * graphicCalcul;
+    QTimer * timerMode;
+    QString commandWin;
 
     bool isFree(QString text);
     void sendSpecificMessage(QTcpSocket * client, QString valid);
     void generateKey();
     void generateAll();
+    void executeCommand(QString cmd);
 
 signals:
     void niveau(QString niv);
