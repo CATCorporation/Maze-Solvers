@@ -49,9 +49,6 @@ void serv::handleNewConnection()
     QTcpSocket *client = nextPendingConnection();
     connect(client, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
     connect(client, SIGNAL(readyRead()),this, SLOT(readClient()));
-    clientConnections.append(client);
-    emit nombre(clientConnections.size());
-
 }
 
 void serv::clientDisconnected()
@@ -83,6 +80,7 @@ void serv::readClient()
     {
             QString ps = ligne.split("|").at(1);
             ps.remove("\n");
+            sendMsg("Leave >> " + ps);
             pseudo.removeAt(pseudo.indexOf(ps));
     }
     else if(ligne.contains("count"))
@@ -127,8 +125,11 @@ void serv::readClient()
             QString ps = ligne.split("|").at(1);
             ps.remove("\n");
             pseudo.append(ps);
+            sendMsg("Join >> " + ps);
             sendSpecificMessage(client,"load|" + QString::number(indexMap) + "|" + QString::number(currentLevel) + "|move&down&" + graphicCalcul->getPlayer());
             sendSpecificMessage(client,ligne+"|mode|" + QString::number(modeDeJeu));
+            clientConnections.append(client);
+            emit nombre(clientConnections.size());
         }
         else
             sendSpecificMessage(client,"connect|NO");
