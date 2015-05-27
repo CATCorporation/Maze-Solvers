@@ -188,7 +188,7 @@ void GraphicCalcul::right()
 
 QString GraphicCalcul::getPlayer()
 {
-    return QString(QString::number(placement.joueur.rx()) + "&" + QString::number(placement.joueur.ry()));
+    return QString(QString::number(placement.joueur.rx()) + "&" + QString::number(placement.joueur.ry()) + "&" + QString::number(placement.life));
 }
 
 bool GraphicCalcul::getTraitment() const
@@ -221,5 +221,3 @@ void GraphicCalcul::randomPoint()
     }while(isValide == false);
     placement.joueur = QPoint(x,y);
 }
-
-

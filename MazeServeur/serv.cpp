@@ -92,10 +92,12 @@ void serv::readClient()
         command.remove("\n");
         if(command == "anarchie" )
         {
-            sendMsg(ligne+"|mode|" + QString::number(-1));
             modeDeJeu--;
         }
+        if(modeDeJeu < 51)
+            timerMode->stop();
 
+        sendMsg(ligne+"|mode|" + QString::number(modeDeJeu));
     }
     else if(ligne.contains("democratie"))
     {
@@ -103,11 +105,11 @@ void serv::readClient()
         command.remove("\n");
         if(command == "democratie" )
         {
-            sendMsg(ligne+"|mode|" + QString::number(1));
             modeDeJeu++;
         }
+        sendMsg(ligne+"|mode|" + QString::number(modeDeJeu));
         if(modeDeJeu > 50)
-            timerMode->start(5000);
+            timerMode->start(2000);
     }
     else if(ligne.contains("connect"))
     {
@@ -118,6 +120,7 @@ void serv::readClient()
             ps.remove("\n");
             pseudo.append(ps);
             sendSpecificMessage(client,"load|" + QString::number(indexMap) + "|" + QString::number(currentLevel) + "|move&down&" + graphicCalcul->getPlayer());
+            sendSpecificMessage(client,ligne+"|mode|" + QString::number(modeDeJeu));
         }
         else
             sendSpecificMessage(client,"connect|NO");
@@ -162,7 +165,7 @@ void serv::timeoutCommand()
 
     QList<int> listeCommande;
     listeCommande << up << down << left << right;
-    int save = -1;
+    int save = 0;
 
     for(int i = 0; i < 4;  i++)
         if(listeCommande.at(0)< listeCommande.at(i))
@@ -190,7 +193,7 @@ void serv::timeoutCommand()
 
     up = down = left = right =0;
 
-    timerMode->start(5000);
+    timerMode->start(2000);
 }
 
 bool serv::isFree(QString text)
