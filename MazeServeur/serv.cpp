@@ -9,6 +9,9 @@ serv::serv()
     graphicCalcul = new GraphicCalcul;
     timerMode = new QTimer;
     connect(timerMode,SIGNAL(timeout()),this,SLOT(timeoutCommand()));
+
+    QString iniPath = CONFIG_SERVEUR;
+    fichierIni = new QSettings(iniPath,QSettings::IniFormat);
 }
 
 serv::~serv()
@@ -85,6 +88,11 @@ void serv::readClient()
     else if(ligne.contains("count"))
     {
         sendSpecificMessage(client,"count|" + QString::number(countMap()));
+    }
+    else if(ligne.contains("version|"))
+    {
+        checkVersion();
+        sendSpecificMessage(client,"version|" + version);
     }
     else if(ligne.contains("anarchie"))
     {
@@ -242,6 +250,11 @@ void serv::executeCommand(QString cmd)
         graphicCalcul->left();
     if(cmd == "RIGHT")
         graphicCalcul->right();
+}
+
+void serv::checkVersion()
+{
+    version = fichierIni->value(tr("CLIENT/VERSION"),"").toString();
 }
 
 int serv::getMap() const

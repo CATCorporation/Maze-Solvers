@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <QTimer>
+#include <QSettings>
+
+#define CONFIG_SERVEUR  "CONFIG_SERV.ini"
 
 #include "graphiccalcul.h"
 
@@ -51,12 +54,15 @@ private:
     GraphicCalcul * graphicCalcul;
     QTimer * timerMode;
     QString commandWin;
+    QString version;
+    QSettings * fichierIni;
 
     bool isFree(QString text);
     void sendSpecificMessage(QTcpSocket * client, QString valid);
     void generateKey();
     void generateAll();
     void executeCommand(QString cmd);
+    void checkVersion();
 
 signals:
     void niveau(QString niv);
