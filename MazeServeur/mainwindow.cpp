@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     serveur = new serv;
 
     connect(serveur,SIGNAL(nombre(int)),this,SLOT(setuserCount(int)));

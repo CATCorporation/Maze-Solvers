@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDir>
+#include <time.h>
 
 Maze::Maze(QObject *parent) : QObject(parent)
 {
@@ -17,10 +18,9 @@ void Maze::generateMaze()
 {
     depart = false;
     arrive = false;
+    list< pair< int, int > > drillers;
 
     srand(time(0));
-
-    list< pair< int, int > > drillers;
 
     maze.resize(maze_size_y);
     for(size_t y = 0; y < maze_size_y; y++)
@@ -83,9 +83,6 @@ void Maze::generateMaze()
             else
             {
                 drillers.push_back(make_pair((*m).first,(*m).second));
-                // Commenter le if permet de rendre le maze plus facile
-                if (rand()%2)
-                    drillers.push_back(make_pair((*m).first,(*m).second));
 
                 maze[(*m).second][(*m).first]=true;
                 ++m;
