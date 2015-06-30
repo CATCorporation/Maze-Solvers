@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     serv.cpp \
-    graphiccalcul.cpp
+    graphiccalcul.cpp \
+    maze.cpp
 
 HEADERS  += mainwindow.h \
     serv.h \
-    graphiccalcul.h
+    graphiccalcul.h \
+    maze.h
 
 FORMS    += mainwindow.ui

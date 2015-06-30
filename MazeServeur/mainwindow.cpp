@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "maze.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -33,4 +34,19 @@ void MainWindow::setLevl(QString lvl)
 void MainWindow::setuserCount(int nb)
 {
     ui->nbuser->setText(QString::number(nb));
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    maze = new Maze();
+    connect(maze, SIGNAL(finished(QString)), this, SLOT(setMapsGenerated(QString)));
+
+    maze->generate();
+}
+
+void MainWindow::setMapsGenerated(QString number)
+{
+    ui->attente->setText(number);
+
+    delete(maze);
 }
