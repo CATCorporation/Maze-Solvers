@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "maze.h"
+#include "serv.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

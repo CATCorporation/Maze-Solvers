@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "serv.h"
 
 class Maze;
+class serv;
 namespace Ui {
 class MainWindow;
 }
