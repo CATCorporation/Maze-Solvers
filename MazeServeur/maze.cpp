@@ -16,8 +16,8 @@ Maze::~Maze()
 
 void Maze::generateMaze()
 {
-    depart = false;
-    arrive = false;
+    _start = false;
+    _stop = false;
     list< pair< int, int > > drillers;
 
     srand(time(0));
@@ -105,14 +105,14 @@ void Maze::generateFile(int counter)
         {
             if (maze[y][x] == true && x != 29 && y != 29)
             {
-                if(y > 0 && !depart)
+                if(y > 0 && !_start)
                 {
-                    depart = true;
+                    _start = true;
                     stream << "D" ;
                 }
-                else if(y > 24  && y < 29 && !arrive)
+                else if(y > 24  && y < 29 && !_stop)
                 {
-                    arrive = true;
+                    _stop = true;
                     stream << "A" ;
                 }
                 else

@@ -29,50 +29,50 @@ bool GraphicCalcul::loadMap(int idx)
         mapArray.append(ligne);
         if(ligne.contains("D"))
         {
-            placement.depart = QPoint(mapArray.size()-1,ligne.indexOf("D"));
+            placement.m_start = QPoint(mapArray.size()-1,ligne.indexOf("D"));
         }
         else if(ligne.contains("A"))
         {
-            placement.arrive = QPoint(mapArray.size()-1,ligne.indexOf("A"));
+            placement.m_finish = QPoint(mapArray.size()-1,ligne.indexOf("A"));
         }
     }
     file.close();
-    placement.joueur = placement.depart;
+    placement.teemo = placement.m_start;
     placement.life = 3;
     return true;
 }
 
 void GraphicCalcul::up()
 {
-    if( placement.joueur.rx() >= 1 &&
-        mapArray.at(placement.joueur.rx()-1).at(placement.joueur.ry()) != '*')
+    if( placement.teemo.rx() >= 1 &&
+        mapArray.at(placement.teemo.rx()-1).at(placement.teemo.ry()) != '*')
     {
-        if( mapArray.at(placement.joueur.rx()-1).at(placement.joueur.ry()) == 'P')
+        if( mapArray.at(placement.teemo.rx()-1).at(placement.teemo.ry()) == 'P')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
                 randomPoint();
         }
-        else if(mapArray.at(placement.joueur.rx()-1).at(placement.joueur.ry()) == 'Q')
+        else if(mapArray.at(placement.teemo.rx()-1).at(placement.teemo.ry()) == 'Q')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
-                placement.joueur = placement.depart;
+                placement.teemo = placement.m_start;
         }
-        else if(mapArray.at(placement.joueur.rx()-1).at(placement.joueur.ry()) == 'B')
+        else if(mapArray.at(placement.teemo.rx()-1).at(placement.teemo.ry()) == 'B')
             placement.life++;
-        else if(mapArray.at(placement.joueur.rx()-1).at(placement.joueur.ry()) == 'C')
+        else if(mapArray.at(placement.teemo.rx()-1).at(placement.teemo.ry()) == 'C')
             placement.life--;
-        else if(mapArray.at(placement.joueur.rx()-1).at(placement.joueur.ry()) == 'R')
-            placement.invicible = true;
+        else if(mapArray.at(placement.teemo.rx()-1).at(placement.teemo.ry()) == 'R')
+            placement.invicibility = true;
         else
-            placement.joueur.rx()--;
+            placement.teemo.rx()--;
     }
     if(placement.life == 0)
     {
-        placement.joueur = placement.depart;
+        placement.teemo = placement.m_start;
         placement.life = 3;
     }
     traitment = true;
@@ -80,35 +80,35 @@ void GraphicCalcul::up()
 
 void GraphicCalcul::down()
 {
-    if( placement.joueur.rx() <= 28 &&
-        mapArray.at(placement.joueur.rx()+1).at(placement.joueur.ry()) != '*')
+    if( placement.teemo.rx() <= 28 &&
+        mapArray.at(placement.teemo.rx()+1).at(placement.teemo.ry()) != '*')
     {
-        if( mapArray.at(placement.joueur.rx()+1).at(placement.joueur.ry()) == 'P')
+        if( mapArray.at(placement.teemo.rx()+1).at(placement.teemo.ry()) == 'P')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
                 randomPoint();
         }
-        else if(mapArray.at(placement.joueur.rx()+1).at(placement.joueur.ry()) == 'Q')
+        else if(mapArray.at(placement.teemo.rx()+1).at(placement.teemo.ry()) == 'Q')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
-                placement.joueur = placement.depart;
+                placement.teemo = placement.m_start;
         }
-        else if(mapArray.at(placement.joueur.rx()+1).at(placement.joueur.ry()) == 'B')
+        else if(mapArray.at(placement.teemo.rx()+1).at(placement.teemo.ry()) == 'B')
             placement.life++;
-        else if(mapArray.at(placement.joueur.rx()+1).at(placement.joueur.ry()) == 'C')
+        else if(mapArray.at(placement.teemo.rx()+1).at(placement.teemo.ry()) == 'C')
             placement.life--;
-        else if(mapArray.at(placement.joueur.rx()+1).at(placement.joueur.ry()) == 'R')
-            placement.invicible = true;
+        else if(mapArray.at(placement.teemo.rx()+1).at(placement.teemo.ry()) == 'R')
+            placement.invicibility = true;
         else
-            placement.joueur.rx()++;
+            placement.teemo.rx()++;
     }
     if(placement.life == 0)
     {
-        placement.joueur = placement.depart;
+        placement.teemo = placement.m_start;
         placement.life = 3;
     }
     traitment = true;
@@ -116,35 +116,35 @@ void GraphicCalcul::down()
 
 void GraphicCalcul::left()
 {
-    if( placement.joueur.ry() >= 1 &&
-        mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()-1) != '*')
+    if( placement.teemo.ry() >= 1 &&
+        mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()-1) != '*')
     {
-        if( mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()-1) == 'P')
+        if( mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()-1) == 'P')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
                 randomPoint();
         }
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()-1) == 'Q')
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()-1) == 'Q')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
-                placement.joueur = placement.depart;
+                placement.teemo = placement.m_start;
         }
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()-1) == 'B')
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()-1) == 'B')
             placement.life++;
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()-1) == 'C')
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()-1) == 'C')
             placement.life--;
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()-1) == 'R')
-            placement.invicible = true;
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()-1) == 'R')
+            placement.invicibility = true;
         else
-            placement.joueur.ry()--;
+            placement.teemo.ry()--;
     }
     if(placement.life == 0)
     {
-        placement.joueur = placement.depart;
+        placement.teemo = placement.m_start;
         placement.life = 3;
     }
     traitment = true;
@@ -152,35 +152,35 @@ void GraphicCalcul::left()
 
 void GraphicCalcul::right()
 {
-    if( placement.joueur.ry() <= 28 &&
-        mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()+1) != '*')
+    if( placement.teemo.ry() <= 28 &&
+        mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()+1) != '*')
     {
-        if( mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()+1) == 'P')
+        if( mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()+1) == 'P')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
                 randomPoint();
         }
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()+1) == 'Q')
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()+1) == 'Q')
         {
-            if(placement.invicible)
-                placement.invicible  = false;
+            if(placement.invicibility)
+                placement.invicibility  = false;
             else
-                placement.joueur = placement.depart;
+                placement.teemo = placement.m_start;
         }
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()+1) == 'B')
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()+1) == 'B')
             placement.life++;
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()+1) == 'C')
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()+1) == 'C')
             placement.life--;
-        else if(mapArray.at(placement.joueur.rx()).at(placement.joueur.ry()+1) == 'R')
-            placement.invicible = true;
+        else if(mapArray.at(placement.teemo.rx()).at(placement.teemo.ry()+1) == 'R')
+            placement.invicibility = true;
         else
-            placement.joueur.ry()++;
+            placement.teemo.ry()++;
     }
     if(placement.life == 0)
     {
-        placement.joueur = placement.depart;
+        placement.teemo = placement.m_start;
         placement.life = 3;
     }
     traitment = true;
@@ -188,7 +188,7 @@ void GraphicCalcul::right()
 
 QString GraphicCalcul::getPlayer()
 {
-    return QString(QString::number(placement.joueur.rx()) + "&" + QString::number(placement.joueur.ry()) + "&" + QString::number(placement.life));
+    return QString(QString::number(placement.teemo.rx()) + "&" + QString::number(placement.teemo.ry()) + "&" + QString::number(placement.life));
 }
 
 bool GraphicCalcul::getTraitment() const
@@ -203,7 +203,7 @@ void GraphicCalcul::setTraitment(bool value)
 
 bool GraphicCalcul::isArrived()
 {
-    return (placement.joueur == placement.arrive);
+    return (placement.teemo == placement.m_finish);
 }
 
 void GraphicCalcul::randomPoint()
@@ -219,5 +219,5 @@ void GraphicCalcul::randomPoint()
         y = rand() % 29 + 1;
         isValide = mapArray.at(x).at(y) != '*' && mapArray.at(x).at(y) != 'A' && mapArray.at(x).at(y) != 'P' && mapArray.at(x).at(y) != 'Q';
     }while(isValide == false);
-    placement.joueur = QPoint(x,y);
+    placement.teemo = QPoint(x,y);
 }

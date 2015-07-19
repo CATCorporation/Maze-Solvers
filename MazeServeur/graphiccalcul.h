@@ -26,11 +26,11 @@ public:
 
 private:
     struct Gps {
-        QPoint depart;
-        QPoint arrive;
-        QPoint joueur;
+        QPoint m_start;
+        QPoint m_finish;
+        QPoint teemo;
         int life;
-        bool invicible;
+        bool invicibility;
     };
     bool traitment;
     Gps placement;

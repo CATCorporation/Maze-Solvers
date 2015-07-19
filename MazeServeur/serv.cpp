@@ -11,7 +11,7 @@ serv::serv()
     connect(timerMode,SIGNAL(timeout()),this,SLOT(timeoutCommand()));
 
     QString iniPath = CONFIG_SERVEUR;
-    fichierIni = new QSettings(iniPath,QSettings::IniFormat);
+    iniFile = new QSettings(iniPath,QSettings::IniFormat);
 }
 
 serv::~serv()
@@ -23,10 +23,10 @@ void serv::start()
 {
    listen(QHostAddress::Any, 1234);
    generateAll();
-   emit niveau(QString::number(currentLevel));
-   emit nombre(clientConnections.size());
+   emit level(QString::number(currentLevel));
+   emit number(clientConnections.size());
    up = down = left = right = 0;
-   modeDeJeu = 50;
+   gameMode = 50;
 }
 
 void serv::stop()
@@ -60,7 +60,7 @@ void serv::clientDisconnected()
 
     clientConnections.removeAll(client);
     client->deleteLater();
-    emit nombre(clientConnections.size());
+    emit number(clientConnections.size());
 }
 
 void serv::readClient()
@@ -98,12 +98,12 @@ void serv::readClient()
         command.remove("\n");
         if(command == "anarchie" )
         {
-            modeDeJeu--;
+            gameMode--;
         }
-        if(modeDeJeu < 51)
+        if(gameMode < 51)
             timerMode->stop();
 
-        sendMsg(ligne+"|mode|" + QString::number(modeDeJeu));
+        sendMsg(ligne+"|mode|" + QString::number(gameMode));
     }
     else if(ligne.contains("democratie"))
     {
@@ -111,10 +111,10 @@ void serv::readClient()
         command.remove("\n");
         if(command == "democratie" )
         {
-            modeDeJeu++;
+            gameMode++;
         }
-        sendMsg(ligne+"|mode|" + QString::number(modeDeJeu));
-        if(modeDeJeu > 50)
+        sendMsg(ligne+"|mode|" + QString::number(gameMode));
+        if(gameMode > 50)
             timerMode->start(2000);
     }
     else if(ligne.contains("connect"))
@@ -127,9 +127,9 @@ void serv::readClient()
             pseudo.append(ps);
             sendMsg("Join >> " + ps);
             sendSpecificMessage(client,"load|" + QString::number(indexMap) + "|" + QString::number(currentLevel) + "|move&down&" + graphicCalcul->getPlayer());
-            sendSpecificMessage(client,ligne+"|mode|" + QString::number(modeDeJeu));
+            sendSpecificMessage(client,ligne+"|mode|" + QString::number(gameMode));
             clientConnections.append(client);
-            emit nombre(clientConnections.size());
+            emit number(clientConnections.size());
         }
         else
             sendSpecificMessage(client,"connect|NO");
@@ -141,7 +141,7 @@ void serv::readClient()
         command.remove("\n");
         command = command.toUpper();
 
-        if(modeDeJeu > 50)
+        if(gameMode > 50)
         {
             if(command == "UP")
                 up++;
@@ -165,7 +165,7 @@ void serv::readClient()
         currentLevel++;
         generateAll();
         sendMsg("load|" + QString::number(indexMap) + "|" + QString::number(currentLevel)+ "|move&down&" + graphicCalcul->getPlayer());
-        emit niveau(QString::number(currentLevel));
+        emit level(QString::number(currentLevel));
     }
 }
 
@@ -255,7 +255,7 @@ void serv::executeCommand(QString cmd)
 
 void serv::checkVersion()
 {
-    version = fichierIni->value(tr("CLIENT/VERSION"),"").toString();
+    version = iniFile->value(tr("CLIENT/VERSION"),"").toString();
 }
 
 int serv::getMap() const
