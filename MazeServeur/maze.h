@@ -23,8 +23,8 @@ public slots:
     void generate();
 
 private:
-    bool depart;
-    bool arrive;
+    bool _start;
+    bool _stop;
     vector< vector< bool > > maze;
 
     void generateMaze();

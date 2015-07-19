@@ -50,12 +50,12 @@ private:
     QStringList maze;
     int currentLevel;
     int indexMap;
-    int modeDeJeu,up,down,left,right;
+    int gameMode,up,down,left,right;
     GraphicCalcul * graphicCalcul;
     QTimer * timerMode;
     QString commandWin;
     QString version;
-    QSettings * fichierIni;
+    QSettings * iniFile;
 
     bool isFree(QString text);
     void sendSpecificMessage(QTcpSocket * client, QString valid);
@@ -65,8 +65,8 @@ private:
     void checkVersion();
 
 signals:
-    void niveau(QString niv);
-    void nombre(int nb);
+    void level(QString niv);
+    void number(int nb);
 
 };
 
